@@ -63,10 +63,10 @@ spec:
             sh "tar xvf yq_linux_amd64.tar.gz"
             sh "mv yq_linux_amd64 /usr/bin/yq"
             sh "git checkout ${env.GIT_REPO_BRANCH}"
-            sh  "git config --global user.name "hemanth344""
             sh '''#!/bin/bash
               echo $GIT_REPO_EMAIL
               echo $GIT_COMMIT
+              sh  "git config --global user.name "hemanth344""
               yq eval '.image.repository = env(IMAGE_REPO)' -i rsvpapp-helm-cicd/package/values.yaml
               yq eval '.image.tag = env(GIT_COMMIT)' -i rsvpapp-helm-cicd/package/values.yaml
               cat rsvpapp-helm-cicd/package/values.yaml
