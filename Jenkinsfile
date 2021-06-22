@@ -72,7 +72,7 @@ spec:
             '''
             sh "git add rsvpapp-helm-cicd/package/values.yaml"
             sh "git commit -m 'Triggered Build'"
-            //sh "git push https://hemanth344:HemanthCloud1@github.com/hemanth344/rsvpapp-helm-cicd.git"
+            
         }
       }
     }   
