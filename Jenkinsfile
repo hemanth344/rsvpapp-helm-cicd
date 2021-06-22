@@ -68,6 +68,7 @@ spec:
               echo $GIT_COMMIT
               yq eval '.image.repository = env(IMAGE_REPO)' -i rsvpapp-helm-cicd/package/values.yaml
               yq eval '.image.tag = env(GIT_COMMIT)' -i rsvpapp-helm-cicd/package/values.yaml
+              cat rsvpapp-helm-cicd/package/values.yaml
             '''
             sh "git add rsvpapp-helm-cicd/package/values.yaml"
             sh "git commit -am 'Publish new version' && git push || echo 'no changes'"
