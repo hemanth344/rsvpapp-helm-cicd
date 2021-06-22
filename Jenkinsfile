@@ -64,8 +64,9 @@ spec:
             sh "mv yq_linux_amd64 /usr/bin/yq"
             sh "yq --version"
             sh '''#!/bin/bash
-              echo ${env.GIT_REPO_EMAIL}
               echo $GIT_REPO_EMAIL
+              echo $GIT_COMMIT
+              echo ${env.GIT_COMMIT}
               yq eval '.image.repository = env(IMAGE_REPO):env(env.GIT_COMMIT)' rsvpapp-helm-cicd/package/values.yaml
             '''
         }
