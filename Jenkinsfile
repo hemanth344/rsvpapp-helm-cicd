@@ -59,6 +59,7 @@ spec:
         container('tools') {
             sh "git clone https://$GIT_CREDS_USR:$GIT_CREDS_PSW@${env.GIT_REPO_URL}"
             sh "git config --global user.email ${env.GIT_REPO_EMAIL}"
+            sh "git config --global user.name ${env.GIT_REPO_EMAIL}"
             sh "wget https://github.com/mikefarah/yq/releases/download/v4.9.6/yq_linux_amd64.tar.gz"
             sh "tar xvf yq_linux_amd64.tar.gz"
             sh "mv yq_linux_amd64 /usr/bin/yq"
@@ -66,7 +67,6 @@ spec:
             sh '''#!/bin/bash
               echo $GIT_REPO_EMAIL
               echo $GIT_COMMIT
-              sh  "git config --global user.name "hemanth344""
               yq eval '.image.repository = env(IMAGE_REPO)' -i rsvpapp-helm-cicd/package/values.yaml
               yq eval '.image.tag = env(GIT_COMMIT)' -i rsvpapp-helm-cicd/package/values.yaml
               cat rsvpapp-helm-cicd/package/values.yaml
