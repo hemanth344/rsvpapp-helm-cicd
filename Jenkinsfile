@@ -39,7 +39,7 @@ spec:
       }
       steps {
         container('docker') {
-          echo ${env.GIT_COMMIT}
+          sh "echo ${env.GIT_COMMIT}"
           // Build new image
           //sh "until docker container ls; do sleep 3; done && docker image build -t  ${env.IMAGE_REPO}:${env.GIT_COMMIT} ."
           // Publish new image
