@@ -41,9 +41,9 @@ spec:
         container('docker') {
           sh "echo ${env.GIT_COMMIT}"
           // Build new image
-          //sh "until docker container ls; do sleep 3; done && docker image build -t  ${env.IMAGE_REPO}:${env.GIT_COMMIT} ."
+          sh "until docker container ls; do sleep 3; done && docker image build -t  ${env.IMAGE_REPO}:${env.GIT_COMMIT} ."
           // Publish new image
-          //sh "docker login --username $DOCKERHUB_CREDS_USR --password $DOCKERHUB_CREDS_PSW && docker image push ${env.IMAGE_REPO}:${env.GIT_COMMIT}"
+          sh "docker login --username $DOCKERHUB_CREDS_USR --password $DOCKERHUB_CREDS_PSW && docker image push ${env.IMAGE_REPO}:${env.GIT_COMMIT}"
         }
       }
     }
@@ -59,17 +59,16 @@ spec:
         container('tools') {
             sh "git clone https://$GIT_CREDS_USR:$GIT_CREDS_PSW@${env.GIT_REPO_URL}"
             sh "git config --global user.email ${env.GIT_REPO_EMAIL}"
-            sh "echo helo"
             sh "wget https://github.com/mikefarah/yq/releases/download/v4.9.6/yq_linux_amd64.tar.gz"
             sh "tar xvf yq_linux_amd64.tar.gz"
             sh "mv yq_linux_amd64 /usr/bin/yq"
-            sh "yq --version"
             sh '''#!/bin/bash
               echo $GIT_REPO_EMAIL
               echo $GIT_COMMIT
-              yq eval '.image.repository = env(IMAGE_REPO)' rsvpapp-helm-cicd/package/values.yaml
-              yq eval '.image.tag = env(GIT_COMMIT)' rsvpapp-helm-cicd/package/values.yaml
+              yq eval '.image.repository = env(IMAGE_REPO)' -i rsvpapp-helm-cicd/package/values.yaml
+              yq eval '.image.tag = env(GIT_COMMIT)' -i rsvpapp-helm-cicd/package/values.yaml
             '''
+            sh "git commit -am 'Publish new version' && git push || echo 'no changes'"
         }
       }
     }   
