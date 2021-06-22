@@ -70,11 +70,16 @@ spec:
               yq eval '.image.repository = env(IMAGE_REPO)' -i rsvpapp-helm-cicd/package/values.yaml
               yq eval '.image.tag = env(GIT_COMMIT)' -i rsvpapp-helm-cicd/package/values.yaml
               cat rsvpapp-helm-cicd/package/values.yaml
+              cat pwd
+              git add /package/values.yaml
+              git commit -m 'Triggered Build'
+                //work fine
+              sh "git push https://hemanth344:HemanthCloud1@github.com/hemanth344/rsvpapp-helm-cicd.git"
             '''
-            sh "git add /package/values.yaml"
-            sh "git commit -m 'Triggered Build'"
+            //sh "git add /package/values.yaml"
+            //sh "git commit -m 'Triggered Build'"
             //work fine
-            sh "git push https://hemanth344:HemanthCloud1@github.com/hemanth344/rsvpapp-helm-cicd.git"
+            //sh "git push https://hemanth344:HemanthCloud1@github.com/hemanth344/rsvpapp-helm-cicd.git"
             
         }
       }
