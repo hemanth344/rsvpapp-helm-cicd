@@ -71,7 +71,7 @@ spec:
               yq eval '.image.tag = env(GIT_COMMIT)' -i rsvpapp-helm-cicd/package/values.yaml
               cat rsvpapp-helm-cicd/package/values.yaml
             '''
-            sh "git add rsvpapp-helm-cicd/package/values.yaml"
+            sh "git add /package/values.yaml"
             sh "git commit -m 'Triggered Build'"
             //work fine
             sh "git push https://hemanth344:HemanthCloud1@github.com/hemanth344/rsvpapp-helm-cicd.git"
