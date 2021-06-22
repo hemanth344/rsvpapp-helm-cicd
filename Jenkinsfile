@@ -58,11 +58,12 @@ spec:
       steps {
         container('tools') {
             sh "git clone https://$GIT_CREDS_USR:$GIT_CREDS_PSW@${env.GIT_REPO_URL}"
+            sh "git config --global user.email ${env.GIT_REPO_EMAIL}"
+             // install wq
             sh "wget https://github.com/mikefarah/yq/releases/download/v4.9.6/yq_linux_amd64.tar.gz"
             sh "tar xvf yq_linux_amd64.tar.gz"
             sh "mv yq_linux_amd64 /usr/bin/yq"
-            sh "git checkout ${env.GIT_REPO_BRANCH}"
-            sh "git config user.name hemanth344"
+            //install done
             sh '''#!/bin/bash
               echo $GIT_REPO_EMAIL
               echo $GIT_COMMIT
