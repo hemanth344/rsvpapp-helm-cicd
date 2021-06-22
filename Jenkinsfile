@@ -73,7 +73,7 @@ spec:
             sh "git add rsvpapp-helm-cicd/package/values.yaml"
             sh "git commit -m 'Triggered Build'"
             //work fine
-            sh "git push https://${GIT_USERNAME}:${encodedPassword}@github.com/${GIT_USERNAME}/rsvpapp-helm-cicd.git"
+            sh "git push https://hemanth344:${encodedPassword}@github.com/hemanth344/rsvpapp-helm-cicd.git"
             
         }
       }
