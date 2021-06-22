@@ -70,7 +70,7 @@ spec:
               yq eval '.image.repository = env(IMAGE_REPO)' -i rsvpapp-helm-cicd/package/values.yaml
               yq eval '.image.tag = env(GIT_COMMIT)' -i rsvpapp-helm-cicd/package/values.yaml
               cat rsvpapp-helm-cicd/package/values.yaml
-              cat pwd
+              pwd
               git add /package/values.yaml
               git commit -m 'Triggered Build'
                 //work fine
