@@ -55,7 +55,7 @@ spec:
             sh '''#!/bin/bash
               echo ${env.GIT_REPO_EMAIL}
               echo $GIT_REPO_EMAIL
-              yq eval '.image.repository = "$GIT_REPO_EMAIL"' rsvpapp-helm-cicd/package/values.yaml
+              yq eval '.image.repository = eval(GIT_REPO_EMAIL)' rsvpapp-helm-cicd/package/values.yaml
             '''
       
             //sh "yq e '.image.tag=${env.GIT_REPO_EMAIL}'   rsvpapp-helm-cicd/packag/dummy.yaml"
