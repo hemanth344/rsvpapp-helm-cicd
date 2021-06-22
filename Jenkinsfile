@@ -40,9 +40,9 @@ spec:
       steps {
         container('docker') {
           // Build new image
-          sh "until docker container ls; do sleep 3; done && docker image build -t  ${env.IMAGE_REPO}:${env.GIT_COMMIT} ."
+          //sh "until docker container ls; do sleep 3; done && docker image build -t  ${env.IMAGE_REPO}:${env.GIT_COMMIT} ."
           // Publish new image
-          sh "docker login --username $DOCKERHUB_CREDS_USR --password $DOCKERHUB_CREDS_PSW && docker image push ${env.IMAGE_REPO}:${env.GIT_COMMIT}"
+          //sh "docker login --username $DOCKERHUB_CREDS_USR --password $DOCKERHUB_CREDS_PSW && docker image push ${env.IMAGE_REPO}:${env.GIT_COMMIT}"
         }
       }
     }
@@ -66,7 +66,7 @@ spec:
             sh '''#!/bin/bash
               echo ${env.GIT_REPO_EMAIL}
               echo $GIT_REPO_EMAIL
-              yq eval '.image.repository = env(GIT_REPO_EMAIL)' rsvpapp-helm-cicd/package/values.yaml
+              yq eval '.image.repository = env(IMAGE_REPO):env(GIT_COMMIT)' rsvpapp-helm-cicd/package/values.yaml
             '''
         }
       }
